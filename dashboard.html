@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | BookTrail{% endblock %}
+{% block content %}
+
+<div class="heading">
+    <div>
+        <p class="eyebrow">STORE OVERVIEW</p>
+        <h1>Welcome, {{ username }}!</h1>
+        <p>Here is the current status of your bookstore.</p>
+    </div>
+    <a class="btn" href="{{ url_for('orders') }}">＋ Create Order</a>
+</div>
+
+<div class="hero">
+    <h2>Great stories start with a well-run store.</h2>
+    <p>Manage books, keep track of stock and process orders.</p>
+</div>
+
+<div class="stats">
+    <article>
+        <span>Catalogue Titles</span>
+        <h2>{{ stats.get('books', '—') }}</h2>
+    </article>
+    <article>
+        <span>Units in Stock</span>
+        <h2>{{ stats.get('stock', '—') }}</h2>
+    </article>
+    <article>
+        <span>Orders Processed</span>
+        <h2>{{ stats.get('orders', '—') }}</h2>
+    </article>
+    <article>
+        <span>Low-stock Titles</span>
+        <h2>{{ stats.get('low_stock', '—') }}</h2>
+    </article>
+</div>
+
+<section class="panel">
+    <h3>Book Catalogue Snapshot</h3>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for b in books %}
+                <tr>
+                    <td>{{ b[1] }}</td>
+                    <td>{{ b[2] }}</td>
+                    <td>{{ b[3] }}</td>
+                    <td>₹{{ '%.2f'|format(b[4]) }}</td>
+                    <td>{{ b[5] }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="5">No books available yet.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}

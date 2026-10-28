@@ -1,0 +1,12 @@
+INSERT INTO customers(customer_name,email) VALUES ('Aarav Sharma','aarav@example.com');
+INSERT INTO customers(customer_name,email) VALUES ('Meera Kapoor','meera@example.com');
+INSERT INTO customers(customer_name,email) VALUES ('Kabir Singh','kabir@example.com');
+INSERT INTO books(title,author,category,price,stock_qty,reorder_level) VALUES ('The Pragmatic Programmer','Andrew Hunt','Technology',950,12,4);
+INSERT INTO books(title,author,category,price,stock_qty,reorder_level) VALUES ('Clean Code','Robert C. Martin','Technology',1100,3,5);
+INSERT INTO books(title,author,category,price,stock_qty,reorder_level) VALUES ('Atomic Habits','James Clear','Self Help',550,18,5);
+INSERT INTO books(title,author,category,price,stock_qty,reorder_level) VALUES ('Database System Concepts','Silberschatz','Education',1250,4,5);
+INSERT INTO books(title,author,category,price,stock_qty,reorder_level) VALUES ('The Alchemist','Paulo Coelho','Fiction',399,22,6);
+INSERT INTO wallet_accounts(customer_id,balance) VALUES (1,5000);
+INSERT INTO wallet_accounts(customer_id,balance) VALUES (2,3500);
+INSERT INTO wallet_accounts(customer_id,balance) VALUES (3,2000);
+COMMIT;

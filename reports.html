@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports | BookTrail{% endblock %}
+{% block content %}
+
+<div class="heading">
+    <div>
+        <p class="eyebrow">PL/SQL REPORTING</p>
+        <h1>Inventory Reports</h1>
+        <p>Identify books that need restocking.</p>
+    </div>
+</div>
+
+<div class="stats">
+    <article>
+        <span>Catalogue Titles</span>
+        <h2>{{ stats.get('books', '—') }}</h2>
+    </article>
+    <article>
+        <span>Total Stock Units</span>
+        <h2>{{ stats.get('stock', '—') }}</h2>
+    </article>
+    <article>
+        <span>Low-stock Titles</span>
+        <h2>{{ low_stock|length }}</h2>
+    </article>
+    <article>
+        <span>Total Orders</span>
+        <h2>{{ stats.get('orders', '—') }}</h2>
+    </article>
+</div>
+
+<section class="panel">
+    <h3>Low-stock Report</h3>
+    <p>Books at or below their reorder level.</p>
+
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Remaining Stock</th>
+                    <th>Reorder Level</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for b in low_stock %}
+                <tr>
+                    <td>{{ b[0] }}</td>
+                    <td>{{ b[1] }}</td>
+                    <td>{{ b[2] }}</td>
+                    <td>{{ b[3] }}</td>
+                    <td><span class="warning">Restock needed</span></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">All books are above their reorder levels.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="note">
+        Your explicit-cursor procedure is named
+        <code>print_low_stock_report</code>.
+    </div>
+</section>
+
+{% endblock %}

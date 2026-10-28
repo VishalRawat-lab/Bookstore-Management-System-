@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Orders | BookTrail{% endblock %}
+{% block content %}
+
+<div class="heading">
+    <div>
+        <p class="eyebrow">SALES PROCESSING</p>
+        <h1>Orders & Checkout</h1>
+        <p>The PL/SQL procedure calculates discounts and updates stock.</p>
+    </div>
+</div>
+
+<div class="layout">
+    <section class="panel">
+        <h3>Create an Order</h3>
+        <form method="post" class="stack">
+            <label>Customer ID
+                <input name="customer_id" type="number"
+                       min="1" required placeholder="For example, 1">
+            </label>
+            <small>Use a customer ID from your sample data.</small>
+
+            <label>Select Book
+                <select name="book_id" required>
+                    {% for b in books %}
+                    <option value="{{ b[0] }}">
+                        {{ b[1] }} — ₹{{ '%.2f'|format(b[4]) }}
+                        (Stock: {{ b[5] }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </label>
+
+            <label>Quantity
+                <input name="quantity" type="number"
+                       min="1" value="1" required>
+            </label>
+
+            <div class="note">
+                Oracle checks the stock, calculates the discount,
+                records the order and decreases the available stock.
+            </div>
+
+            <button class="btn" type="submit">Place Order →</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h3>Order History</h3>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Book</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for o in orders %}
+                    <tr>
+                        <td>#{{ o[0] }}</td>
+                        <td>{{ o[1] }}</td>
+                        <td>{{ o[2] }}</td>
+                        <td>{{ o[3] }}</td>
+                        <td>₹{{ '%.2f'|format(o[4]) }}</td>
+                        <td>{{ o[5] }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="6">No orders placed yet.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

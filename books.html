@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Catalogue | BookTrail{% endblock %}
+{% block content %}
+
+<div class="heading">
+    <div>
+        <p class="eyebrow">INVENTORY MANAGEMENT</p>
+        <h1>Book Catalogue</h1>
+        <p>Search, view and add books to the bookstore.</p>
+    </div>
+</div>
+
+<div class="layout">
+    <section class="panel">
+        <div class="panel-head">
+            <h3>All Books</h3>
+            <input id="table-search" placeholder="Search books...">
+        </div>
+
+        <div class="table-wrap">
+            <table id="books-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for b in books %}
+                    <tr>
+                        <td>{{ b[1] }}</td>
+                        <td>{{ b[2] }}</td>
+                        <td>{{ b[3] }}</td>
+                        <td>₹{{ '%.2f'|format(b[4]) }}</td>
+                        <td>{{ b[5] }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="5">No books found.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h3>Add a Book</h3>
+        <form method="post" class="stack">
+            <label>Book Title
+                <input name="title" maxlength="160" required>
+            </label>
+
+            <label>Author
+                <input name="author" maxlength="100" required>
+            </label>
+
+            <label>Category
+                <select name="category" required>
+                    <option>Technology</option>
+                    <option>Education</option>
+                    <option>Fiction</option>
+                    <option>Self Help</option>
+                    <option>Business</option>
+                    <option>Other</option>
+                </select>
+            </label>
+
+            <label>Price (₹)
+                <input name="price" type="number" min="0"
+                       step="0.01" required>
+            </label>
+
+            <label>Stock Quantity
+                <input name="stock_qty" type="number" min="0" required>
+            </label>
+
+            <label>Reorder Level
+                <input name="reorder_level" type="number"
+                       min="0" value="5" required>
+            </label>
+
+            <button class="btn" type="submit">Add Book</button>
+        </form>
+    </section>
+</div>
+
+{% endblock %}

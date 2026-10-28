@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+{% block title %}Sign In | BookTrail{% endblock %}
+
+{% block public %}
+<div class="login-page">
+
+    <section class="login-info">
+        <a href="{{ url_for('login') }}" class="brand">
+            📚 BookTrail
+            <small>BOOKSTORE MANAGEMENT SYSTEM</small>
+        </a>
+
+        <span class="eyebrow">YOUR STORE, SIMPLIFIED</span>
+
+        <h2>Every book.<br>Every order.<br>One place.</h2>
+
+        <p>
+            Manage your book catalogue, process customer orders,
+            monitor inventory and generate reports in one place.
+        </p>
+
+        <div class="note">
+            Built with Python Flask, Oracle Database and PL/SQL.
+        </div>
+    </section>
+
+    <section style="display:flex;align-items:center;justify-content:center;padding:35px 20px;">
+        <div class="login-card">
+
+            <span class="eyebrow">WELCOME BACK</span>
+            <h2>Sign in to BookTrail</h2>
+            <p>Enter your details to access your bookstore dashboard.</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">
+                        <span>{{ message }}</span>
+                        <button type="button" class="dismiss"
+                                aria-label="Dismiss message">&times;</button>
+                    </div>
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('login') }}" class="stack">
+                <label for="username">
+                    Username
+                    <input type="text" id="username" name="username"
+                           placeholder="Enter your username"
+                           autocomplete="username" required>
+                </label>
+
+                <label for="password">
+                    Password
+                    <input type="password" id="password" name="password"
+                           placeholder="Enter your password"
+                           autocomplete="current-password" required>
+                </label>
+
+                <button type="submit" class="btn">Open Dashboard →</button>
+            </form>
+
+            <p style="text-align:center;font-size:11px;">
+                BookTrail · Bookstore Management System
+            </p>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
